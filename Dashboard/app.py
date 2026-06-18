@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import json
 import plotly.express as px
+from pathlib import Path
 
 # -----------------------------
 # PAGE CONFIG
@@ -13,12 +14,16 @@ st.set_page_config(
 )
 
 # -----------------------------
+# BASE DIRECTORY
+# -----------------------------
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# -----------------------------
 # LOAD DATA
 # -----------------------------
 @st.cache_data
 def load_data():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    file_path = os.path.join(base_dir, "Data", "Processed", "final_results_mhvi.csv")
+    file_path = BASE_DIR / "Data" / "Processed" / "final_results_mhvi.csv"
     return pd.read_csv(file_path)
 
 df = load_data()
@@ -52,8 +57,7 @@ df["Region_GEO"] = df["Region"].map(region_name_map)
 # -----------------------------
 @st.cache_data
 def load_geo():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    geo_path = os.path.join(base_dir, "Data", "geo", "ghana_regions.geojson")
+    geo_path = BASE_DIR / "Data" / "geo" / "ghana_regions.geojson"
     with open(geo_path, "r") as f:
         return json.load(f)
 
@@ -222,26 +226,20 @@ col1, col2 = st.columns([1, 1])
 with col1:
     st.markdown("#### National Feature Importance")
     st.markdown("Which indicators drive MHVI scores across all 16 regions.")
-    shap_summary_path = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        "maps", "shap_summary.png"
-    )
-    if os.path.exists(shap_summary_path):
-        st.image(shap_summary_path, use_container_width=True)
+    shap_summary_path = BASE_DIR / "Maps" / "shap_summary.png"
+    if shap_summary_path.exists():
+        st.image(str(shap_summary_path), use_container_width=True)
     else:
-        st.warning("SHAP summary plot not found.")
+        st.warning(f"SHAP summary plot not found at: {shap_summary_path}")
 
 with col2:
     st.markdown("#### Upper East Region — Highest Risk")
     st.markdown("What specifically is driving Upper East's vulnerability score.")
-    shap_ue_path = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        "maps", "shap_upper_east.png"
-    )
-    if os.path.exists(shap_ue_path):
-        st.image(shap_ue_path, use_container_width=True)
+    shap_ue_path = BASE_DIR / "Maps" / "shap_upper_east.png"
+    if shap_ue_path.exists():
+        st.image(str(shap_ue_path), use_container_width=True)
     else:
-        st.warning("SHAP Upper East plot not found.")
+        st.warning(f"SHAP Upper East plot not found at: {shap_ue_path}")
 
 st.markdown("---")
 st.caption("MHVI Dashboard — Decision Support Tool for Maternal Health Planning in Ghana")
