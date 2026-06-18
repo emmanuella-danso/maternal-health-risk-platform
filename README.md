@@ -140,16 +140,26 @@ maternal-health-risk-platform/
 
 ---
 
-## Run It Locally
+##  How to Run
 
-git clone https://github.com/emmanuella-danso/maternal-health-vulnerability-index.git
+Clone the repository:
 
-cd maternal-health-vulnerability-index
+```bash
+git clone https://github.com/emmanuella-danso/maternal-health-risk-platform.git
+cd maternal-health-risk-platform
+```
 
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-streamlit run dashboard/app.py
----
+Launch the application:
+
+```bash
+streamlit run app.py
+```
 
 ## Policy Brief
 
