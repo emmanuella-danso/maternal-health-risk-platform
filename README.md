@@ -158,7 +158,7 @@ Most maternal health reporting focuses on national averages, which hide regional
 ## Author
 
 **Emmanuella Danso**  
-Nursing Graduate · Health Data Scientist · Ghana
+· Health Data Scientist · Ghana
 
 [![GitHub](https://img.shields.io/badge/GitHub-emmanuella--danso-181717?logo=github)](https://github.com/emmanuella-danso)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Emmanuella%20Danso-0A66C2?logo=linkedin)](https://www.linkedin.com/in/emmanuella-danso-699b54404/)
