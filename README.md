@@ -1,200 +1,172 @@
 # Maternal Health Vulnerability Index (MHVI) — Ghana
 
-### *Where does a Ghanaian woman stand the best chance of surviving motherhood?*
-
-This project answers that question with data.
+> **Where does a Ghanaian woman stand the best chance of surviving motherhood?**
+>
+> This project answers that question with data.
 
 The MHVI is a machine learning-powered vulnerability index that scores and maps maternal health risk across all 16 regions of Ghana using the 2022 Demographic and Health Survey. It combines 16 indicators across 5 health domains into a single interpretable score — then uses SHAP explainability to show exactly *why* each region scores the way it does.
 
-Built by a nursing graduate who has sat beside women in labour in Ghana's health facilities and decided that data should do more for them than it currently does.
+Built by a nursing graduate who has worked in maternal health settings in Ghana and believes data should directly improve outcomes for women.
 
 ---
 
-## 🔴 The Problem
+## The Problem
 
-Ghana has made measurable progress on maternal health. But national averages hide a brutal geographic truth: the gap between a woman's chances in Upper East and her chances in Ahafo is not a small statistical variation. It is a structural emergency.
+Ghana has made measurable progress on maternal health. But national averages hide a deeper regional inequality: the difference between Upper East and Ahafo is not minor — it is structural.
 
-Without a tool that names that gap precisely, policy stays generic. Resources get distributed by assumption. Women pay the cost.
+Without precise measurement, policy remains generic and resources are misallocated.
 
 ---
 
-## 🟢 Live Dashboard
+## Live Dashboard
 
-**[→ View the MHVI Dashboard](http://localhost:8501/)\*\*
+**👉 [View the MHVI Dashboard](https://maternal-health-risk-platform-kdrmxelbnhdsyrkzvrzqwk.streamlit.app/)**
 
-No login. No setup. Open it, select a region, see the risk profile.
+No login required — open, select a region, and explore maternal vulnerability across Ghana.
 
 ---
 
 ## Key Findings
 
-| | |
-
+| Metric | Value |
 |---|---|
-
 | 🇬🇭 National Average MHVI | **0.404** |
-
 | 🔴 Highest Vulnerability | **Upper East — 0.86** |
-
 | 🟢 Lowest Vulnerability | **Ahafo — 0.18** |
-
 | High-Risk Regions | **4** |
-
 | Low-Risk Regions | **5** |
 
-The difference between the highest and lowest scoring region is **0.68 index points** — nearly the entire range of the scale. This is not a gradient. This is a divide.
+The difference between the highest and lowest regions is **0.68 index points** — reflecting a severe structural inequality gap, not a smooth distribution.
 
 ---
 
-## What the Dashboard Does
+## Dashboard Sections
 
-| Section | What It Shows |
-
+| Section | Function |
 |---|---|
+| KPI Cards | National overview — average MHVI, risk counts, and extremes |
+| Regional Deep Dive | Region-specific indicators with contextual interpretation |
+| National Comparison | Side-by-side ranking of all 16 regions |
+| Choropleth Map | Geographic visualisation of vulnerability across Ghana |
+| Ranking Table | Full sortable MHVI table |
+| SHAP Global Importance | Key drivers of maternal vulnerability at the national level |
+| SHAP Local Explanations | Why a specific region scores high or low |
 
-| **KPI Cards** | National snapshot — average MHVI, high-risk count, regional range |
-
-| **Regional Deep Dive** | Every indicator for any selected region, scored and contextualised |
-
-| **National Comparison** | All 16 regions ranked side by side |
-
-| **Choropleth Map** | Geographic heatmap — vulnerability made visible on Ghana's map |
-
-| **Ranking Table** | Sortable full-region vulnerability table |
-
-| **SHAP Feature Importance** | Which indicators drive national vulnerability most |
-
-| **SHAP Waterfall Chart** | Region-level explanation — exactly what pushed that score up or down |
-
-The SHAP section is what separates this from a static report. It does not just say Upper East is high risk. It shows *which indicators are responsible* and *by how much* — giving health planners an actionable entry point, not just a red colour on a map.
+SHAP transforms the model from a black box into a policy tool — explaining *why* vulnerability exists, not just where it exists.
 
 ---
 
 ## Methodology
 
-### Data
+### Data Source
+Ghana Demographic and Health Survey (DHS) 2022 — StatCompiler
 
-**Ghana Demographic and Health Survey (DHS) 2022** via DHS StatCompiler
-
+### Dataset
 - 16 regional observations
-
-- 16 indicators selected across 5 maternal health domains
+- 16 maternal health indicators
+- 5 health domains
 
 ### Indicator Domains
-
 1. Antenatal care coverage
-
 2. Skilled birth attendance
-
 3. Postnatal care utilisation
-
 4. Contraceptive prevalence
-
-5. Child nutrition and mortality proxies
+5. Child health and nutrition proxies
 
 ### Model
+- **Algorithm:** Random Forest (selected for stability on small regional datasets)
+- **Output:** Composite MHVI score (normalised index, 0–1)
+- **Explainability:** SHAP — global feature importance and regional waterfall charts
 
-- **Algorithm:** Random Forest — chosen for robustness on small regional datasets and compatibility with SHAP explainability
-
-- **Index Construction:** Composite weighted scoring normalised across all 16 regions
-
-- **Explainability:** SHAP (SHapley Additive exPlanations) — both global feature importance and per-region waterfall decomposition
-
-### Technical Stack
-
-Python · Streamlit · Scikit-learn · SHAP · Plotly · Pandas · GeoJSON · Random Forest
+### Tech Stack
+`Python` · `Streamlit` · `Pandas` · `Scikit-learn` · `SHAP` · `Plotly` · `GeoJSON`
 
 ---
 
 ## Project Structure
-
 maternal-health-risk-platform/
 
 │
 
-├── dashboard/
+├── Dashboard/
 
-│ └── app.py # Full Streamlit application
-
-│
-
-├── data/
-
-│ ├── raw/ # Original DHS StatCompiler exports
-
-│ ├── processed/ # mhvi_processed.csv — clean, analysis-ready
-
-│ └── geo/ # Ghana regional GeoJSON (16 regions)
+│   └── app.py
 
 │
 
-├── maps/ # SHAP visualisation exports (.png)
+├── Data/
 
-├── notebooks/ # Full analysis pipeline (Jupyter)
+│   ├── Raw/
 
-├── policy_brief/ # Policy brief ·
+│   ├── Processed/
+
+│   │   ├── mhvi_processed.csv
+
+│   │   └── final_results_mhvi.csv
+
+│   └── geo/
+
+│       └── ghana_regions.geojson
+
+│
+
+├── Maps/
+
+├── Notebooks/
+
+├── Policy_brief/
+
+├── Reports/
 
 └── README.md
-
-├── report/
-
 ---
 
-##  How to Run
+## Getting Started
 
-Clone the repository:
-
+**Clone the repository:**
 ```bash
 git clone https://github.com/emmanuella-danso/maternal-health-risk-platform.git
 cd maternal-health-risk-platform
 ```
 
-Install dependencies:
-
+**Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-Launch the application:
-
+**Run the app:**
 ```bash
-streamlit run app.py
+streamlit run Dashboard/app.py
 ```
+
+---
 
 ## Policy Brief
 
-A plain-language policy brief is included in /docs/ — written for Ghana Health Service and regional health directorates, not data scientists. It translates index scores into specific, actionable resource allocation recommendations by region.
+A policy brief is included in the repository, designed for the Ghana Health Service and regional health directors. It translates MHVI scores into actionable regional recommendations.
 
 ---
 
 ## Why This Project Exists
 
-I am a nursing graduate from the University for Development Studies, Ghana. I have worked in health facilities in this country. I know what it looks like when a system is under-resourced in the wrong places.
+I am a nursing graduate from the University for Development Studies, Ghana. I have worked in clinical settings and seen firsthand how resource distribution affects maternal outcomes.
 
-Health data science in Ghana is not yet doing the work it could do. Most maternal health reporting stops at national averages. Interventions get designed at the aggregate level, for an average Ghanaian woman who does not exist, while the women in Upper East, Northern, and Savannah regions carry a disproportionate burden that the average actively conceals.
-
-This project is my argument that data, when built with clinical context and deployed with clarity, can change that.
+Most maternal health reporting focuses on national averages, which hide regional disparities. This project shows what happens when we disaggregate that data and make inequality visible.
 
 ---
 
 ## Author
 
-**Emmanuella Danso**
+**Emmanuella Danso**  
+· Health Data Scientist · Ghana
 
-Nursing Graduate · Health Data Scientist
-
-Ghana
-
-[GitHub](https://github.com/emmanuella-danso) ·
-
-[LinkedIn](https://www.linkedin.com/in/emmanuella-danso-699b54404/)
+[![GitHub](https://img.shields.io/badge/GitHub-emmanuella--danso-181717?logo=github)](https://github.com/emmanuella-danso)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Emmanuella%20Danso-0A66C2?logo=linkedin)](https://www.linkedin.com/in/emmanuella-danso-699b54404/)
 
 ---
 
 ## License
 
-MIT — free to use, adapt, and build on with attribution.
-
----
+MIT License — free to use with attribution.
 
 *Built in Ghana. For Ghana.*
