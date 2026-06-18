@@ -18,7 +18,7 @@ st.set_page_config(
 @st.cache_data
 def load_data():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    file_path = os.path.join(base_dir, "data", "processed", "final_results_mhvi.csv")
+    file_path = os.path.join(base_dir, "Data", "Processed", "final_results_mhvi.csv")
     return pd.read_csv(file_path)
 
 df = load_data()
