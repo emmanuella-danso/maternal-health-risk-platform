@@ -53,7 +53,7 @@ df["Region_GEO"] = df["Region"].map(region_name_map)
 @st.cache_data
 def load_geo():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    geo_path = os.path.join(base_dir, "data", "geo", "ghana_regions.geojson")
+    geo_path = os.path.join(base_dir, "Data", "geo", "ghana_regions.geojson")
     with open(geo_path, "r") as f:
         return json.load(f)
 
